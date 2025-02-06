@@ -22,6 +22,14 @@ bar_surface = pygame.Surface((WIDTH, 100))
 bar_surface.fill('lightblue')
 bar_y = HEIGHT - 100
 
+font = pygame.font.Font(None, 50)
+points = 0
+text = f"Points: {points}"
+text_surface = font.render(text, True, 'black')
+text_rect = text_surface.get_rect(topleft=(10, 535))
+
+game_duration = 30 * 1000  # Час у мілісекундах (30 секунд)
+start_time = pygame.time.get_ticks()  # Початковий час
 
 duck1_x = WIDTH
 duck1_y = random.randint(0, HEIGHT - 200)
@@ -38,6 +46,7 @@ level = 1
 current_speed_factor = 1
 
 
+# Кнопки для вибору рівнів
 
 
 # Функції для руху качок
@@ -77,17 +86,26 @@ while run:
 
     if level == 1:
 
+        # Оновлення тексту з кількістю балів
+        text = f"Points: {points}"
+        text_surface = font.render(text, True, 'black')
+
+        # Оновлення тексту з таймером
+        elapsed_time = pygame.time.get_ticks() - start_time
+        remaining_time = max((game_duration - elapsed_time) // 1000, 0)  # Час у секундах
+        if elapsed_time >= game_duration:  # Перевірка, чи час вичерпано
+            level = 0
 
 
-
-
-
-
+        text_time = f"Time: {remaining_time}"
+        text_surface_time = font.render(text_time, True, 'black')
+        text_rect_time = text_surface_time.get_rect(topleft=(700, 535))
 
         # Відображення графіки
         screen.blit(background, (0, 0))
         screen.blit(bar_surface, (0, bar_y))
-
+        screen.blit(text_surface, text_rect)
+        screen.blit(text_surface_time, text_rect_time)
 
         # Рух качок
         fly_duck1()
@@ -111,12 +129,12 @@ while run:
                 if duck1_rect.collidepoint(event.pos):
                     duck1_x = WIDTH
                     duck1_y = random.randint(0, HEIGHT - 200)
-
+                    points += 1
 
                 if duck2_rect.collidepoint(event.pos):
                     duck2_x = -50
                     duck2_y = random.randint(0, HEIGHT - 200)
-
+                    points += 1
 
 
     pygame.display.flip()
