@@ -30,7 +30,7 @@ button.fill('White')
 
 font = pygame.font.Font(None, 50)
 points = 0
-
+record = 0
 text = f"Points: {points}"
 text_surface = font.render(text, True, 'black')
 text_rect = text_surface.get_rect(topleft=(10, 535))
@@ -126,7 +126,8 @@ while run:
         screen.blit(duck2, (duck2_x, duck2_y))
         duck2_rect = duck2.get_rect(topleft=(duck2_x, duck2_y))
     elif level == 0:
-
+        if points > record:
+            record = points
         # Меню
         screen.blit(menu_surface, (0, 0))
         text = f"MENU"
@@ -156,7 +157,9 @@ while run:
         text = f"Your result: {points}"
         text_surface = font.render(text, True, 'black')
         screen.blit(text_surface, text_surface.get_rect(topleft=(330, 170)))
-
+        text_record = f"Your record today: {record}"
+        text_surface_record = font.render(text_record, True, 'black')
+        screen.blit(text_surface_record, text_surface_record.get_rect(topleft=(300, 215)))
 
 
 
