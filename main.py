@@ -52,7 +52,10 @@ level = 0
 current_speed_factor = 1
 
 
-
+# Кнопки для вибору рівнів
+button_easy = pygame.Rect(250, 300, 150, 50)
+button_medium = pygame.Rect(400, 300, 150, 50)
+button_hard = pygame.Rect(550, 300, 150, 50)
 button_play = pygame.Rect(400, 400, 150, 50)
 
 # Функції для руху качок
@@ -134,7 +137,15 @@ while run:
         screen.blit(duck, (480, 70))
 
         # Відображення кнопок рівнів
-
+        pygame.draw.rect(screen, 'gray' if current_speed_factor == 0.5 else 'white', button_easy)
+        pygame.draw.rect(screen, 'gray' if current_speed_factor == 1 else 'white', button_medium)
+        pygame.draw.rect(screen, 'gray' if current_speed_factor == 1.5 else 'white', button_hard)
+        easy_text = font.render("Easy", True, 'black')
+        medium_text = font.render("Medium", True, 'black')
+        hard_text = font.render("Hard", True, 'black')
+        screen.blit(easy_text, (button_easy.x + 20, button_easy.y + 10))
+        screen.blit(medium_text, (button_medium.x + 10, button_medium.y + 10))
+        screen.blit(hard_text, (button_hard.x + 20, button_hard.y + 10))
 
         pygame.draw.rect(screen, 'white', button_play)
         play_text = font.render("Play", True, 'black')
@@ -163,7 +174,12 @@ while run:
                     duck2_y = random.randint(0, HEIGHT - 200)
                     points += 1
             elif level == 0:
-
+                if button_easy.collidepoint(event.pos):
+                    current_speed_factor = 0.5
+                elif button_medium.collidepoint(event.pos):
+                    current_speed_factor = 1
+                elif button_hard.collidepoint(event.pos):
+                    current_speed_factor = 1.5
                 if button_play.collidepoint(event.pos):
                     points = 0
                     start_time = pygame.time.get_ticks()
