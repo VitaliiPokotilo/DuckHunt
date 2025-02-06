@@ -30,6 +30,7 @@ button.fill('White')
 
 font = pygame.font.Font(None, 50)
 points = 0
+
 text = f"Points: {points}"
 text_surface = font.render(text, True, 'black')
 text_rect = text_surface.get_rect(topleft=(10, 535))
@@ -53,10 +54,10 @@ current_speed_factor = 1
 
 
 # Кнопки для вибору рівнів
-button_easy = pygame.Rect(250, 300, 150, 50)
-button_medium = pygame.Rect(400, 300, 150, 50)
-button_hard = pygame.Rect(550, 300, 150, 50)
-button_play = pygame.Rect(400, 400, 150, 50)
+button_easy = pygame.Rect(212.5, 300, 150, 50)
+button_medium = pygame.Rect(362.5, 300, 150, 50)
+button_hard = pygame.Rect(512.5, 300, 150, 50)
+button_play = pygame.Rect(362.5, 400, 150, 50)
 
 # Функції для руху качок
 def fly_duck1():
@@ -125,11 +126,12 @@ while run:
         screen.blit(duck2, (duck2_x, duck2_y))
         duck2_rect = duck2.get_rect(topleft=(duck2_x, duck2_y))
     elif level == 0:
+
         # Меню
         screen.blit(menu_surface, (0, 0))
         text = f"MENU"
         text_surface = font.render(text, True, 'White')
-        screen.blit(text_surface, (400, 100))
+        screen.blit(text_surface, (390, 100))
 
         # Качки у меню
         screen.blit(duck, (415, 30))
@@ -153,7 +155,8 @@ while run:
 
         text = f"Your result: {points}"
         text_surface = font.render(text, True, 'black')
-        screen.blit(text_surface, text_surface.get_rect(topleft=(400, 200)))
+        screen.blit(text_surface, text_surface.get_rect(topleft=(330, 170)))
+
 
 
 
