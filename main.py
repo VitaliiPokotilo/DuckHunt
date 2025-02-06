@@ -22,6 +22,12 @@ bar_surface = pygame.Surface((WIDTH, 100))
 bar_surface.fill('lightblue')
 bar_y = HEIGHT - 100
 
+menu_surface = pygame.Surface((WIDTH, HEIGHT))
+menu_surface.fill('lightblue')
+
+button = pygame.Surface((100, 40))
+button.fill('White')
+
 font = pygame.font.Font(None, 50)
 points = 0
 text = f"Points: {points}"
@@ -42,12 +48,12 @@ duck2_speed_x = 5
 duck2_speed_y = random.choice([-2, 2])
 
 # Рівні складності
-level = 1
+level = 0
 current_speed_factor = 1
 
 
-# Кнопки для вибору рівнів
 
+button_play = pygame.Rect(400, 400, 150, 50)
 
 # Функції для руху качок
 def fly_duck1():
@@ -115,7 +121,28 @@ while run:
         fly_duck2()
         screen.blit(duck2, (duck2_x, duck2_y))
         duck2_rect = duck2.get_rect(topleft=(duck2_x, duck2_y))
+    elif level == 0:
+        # Меню
+        screen.blit(menu_surface, (0, 0))
+        text = f"MENU"
+        text_surface = font.render(text, True, 'White')
+        screen.blit(text_surface, (400, 100))
 
+        # Качки у меню
+        screen.blit(duck, (415, 30))
+        screen.blit(duck, (340, 80))
+        screen.blit(duck, (480, 70))
+
+        # Відображення кнопок рівнів
+
+
+        pygame.draw.rect(screen, 'white', button_play)
+        play_text = font.render("Play", True, 'black')
+        screen.blit(play_text, (button_play.x + 20, button_play.y + 10))
+
+        text = f"Your result: {points}"
+        text_surface = font.render(text, True, 'black')
+        screen.blit(text_surface, text_surface.get_rect(topleft=(400, 200)))
 
 
 
@@ -135,7 +162,12 @@ while run:
                     duck2_x = -50
                     duck2_y = random.randint(0, HEIGHT - 200)
                     points += 1
+            elif level == 0:
 
+                if button_play.collidepoint(event.pos):
+                    points = 0
+                    start_time = pygame.time.get_ticks()
+                    level = 1
 
     pygame.display.flip()
 
