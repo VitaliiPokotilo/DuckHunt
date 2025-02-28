@@ -1,0 +1,6 @@
+WIDTH = 875
+HEIGHT = 600
+FPS = 60
+GAME_DURATION = 30 * 1000  # 30 seconds in milliseconds
+BAR_Y = HEIGHT - 100
+POINTS = 0
