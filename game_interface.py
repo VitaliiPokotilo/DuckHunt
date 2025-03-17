@@ -6,7 +6,7 @@ from settings import WIDTH, HEIGHT
 class GameUI:
     def __init__(self, screen):
         self.screen = screen
-        self.background = pygame.image.load('assets/Theme2.png')
+        self.background = pygame.image.load('assetsPhotos/Theme2.png')
 
         self.font = pygame.font.Font(None, 50)
 
