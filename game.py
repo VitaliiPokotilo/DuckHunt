@@ -24,12 +24,21 @@ class Game:
         self.current_speed_factor = 1
         self.run = True
 
+        # Завантажуємо музику для головного меню
+        pygame.mixer.music.load('assetsAudio/title_screen.mp3')
+        pygame.mixer.music.play(-1, 0.0)  # -1 означає, що музика буде грати в циклі
+
+        # Завантаження звуків
+        self.hit_sound = pygame.mixer.Sound('assetsAudio/Quack.mp3')
+        self.shot_sound = pygame.mixer.Sound('assetsAudio/Hit.mp3')
+
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.run = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.handle_mouse_click(event.pos)
+                self.shot_sound.play()  # Відтворюємо звук пострілу при натисканні миші
 
     def handle_mouse_click(self, pos):
         if self.level == 1:
@@ -37,10 +46,12 @@ class Game:
                 self.duck1.x = WIDTH
                 self.duck1.y = random.randint(0, HEIGHT - 200)
                 self.points += 1
+                self.hit_sound.play()  # Відтворюємо звук при влучанні в качку
             if self.duck2.image.get_rect(topleft=(self.duck2.x, self.duck2.y)).collidepoint(pos):
                 self.duck2.x = -50
                 self.duck2.y = random.randint(0, HEIGHT - 200)
                 self.points += 1
+                self.hit_sound.play()  # Відтворюємо звук при влучанні в качку
         elif self.level == 0:
             if self.ui.button_easy.collidepoint(pos):
                 self.current_speed_factor = 0.5
@@ -52,6 +63,11 @@ class Game:
                 self.points = 0
                 self.start_time = pygame.time.get_ticks()
                 self.level = 1
+
+                # Заміна музики для рівня гри
+                pygame.mixer.music.load('assetsAudio/Game.mp3')
+                pygame.mixer.music.play(-1, 0.0)  # Грає в циклі
+
             elif self.ui.button_exit.collidepoint(pos):
                 self.run = False
 
@@ -65,6 +81,10 @@ class Game:
 
             if elapsed_time >= GAME_DURATION:
                 self.level = 0
+
+                # Повертаємо музику до меню після закінчення гри
+                pygame.mixer.music.load('assetsAudio/title_screen.mp3')
+                pygame.mixer.music.play(-1, 0.0)  # Знову музика для головного меню
 
             self.ui.draw_game_screen(self.points, remaining_time)
             self.duck1.fly(self.current_speed_factor)
