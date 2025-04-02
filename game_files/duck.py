@@ -2,7 +2,7 @@
 
 import pygame
 import random
-from settings import WIDTH, HEIGHT
+from game_files.settings import WIDTH, HEIGHT
 
 class Duck:
     def __init__(self, image, x, y, speed_x, speed_y):

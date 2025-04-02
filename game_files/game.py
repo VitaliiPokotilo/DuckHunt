@@ -1,9 +1,8 @@
 import pygame
-import sys
 import random
-from duck import Duck
-from game_interface import GameUI
-from settings import WIDTH, HEIGHT, FPS, GAME_DURATION, POINTS
+from game_files.duck import Duck
+from game_files.game_interface import GameUI
+from game_files.settings import WIDTH, HEIGHT, FPS, GAME_DURATION, POINTS
 
 
 class Game:

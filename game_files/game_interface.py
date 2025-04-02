@@ -1,7 +1,7 @@
 import pygame
 import sys
 import random
-from settings import WIDTH, HEIGHT
+from game_files.settings import WIDTH, HEIGHT
 
 class GameUI:
     def __init__(self, screen):
