@@ -11,6 +11,7 @@ from game_files.settings import WIDTH, HEIGHT, GAME_DURATION
 
 def test_game_initialization():
     pygame.init()
+    pygame.mixer.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     game = Game(screen)
 
